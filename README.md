@@ -1,57 +1,31 @@
-# Sales Data Analysis Portfolio Project
+# Power BI Dashboard Guide
 
-**Created for:** Vivek Kumar Singh  
-**Project type:** Beginner Data Analyst portfolio project  
-**Tools:** Excel / Google Sheets, SQL, Python (Pandas), Power BI (dashboard build guide)
+This folder contains instructions for building a Power BI dashboard using the shared dataset. A `.pbix` file is not included because it must be created and saved in Power BI Desktop.
 
-## Objective
-Analyze sample sales data to understand sales performance across months, product categories, cities, regions, and payment methods.
+## Build it
+1. Open Power BI Desktop.
+2. Select **Get Data → Text/CSV** and import `../data/sales_data.csv`.
+3. Check data types: `Order_Date` = Date; `Quantity` = Whole number; `Unit_Price_INR` and `Sales_INR` = Whole/Currency.
+4. Create these measures:
 
-## Dataset
-`data/sales_data.csv` contains 36 synthetic sample orders. The dataset includes order date, region, city, category, product, quantity, unit price, payment method, sales amount, and month. All records are fictional and intended only for learning.
-
-## Project files
-- `Excel_Sales_Dashboard.xlsx` — KPI dashboard, monthly sales chart, category chart, raw data, and summary sheets.
-- `data/sales_data.csv` — sample dataset for Excel, SQL, Python, and Power BI.
-- `sql/sales_analysis.sql` — SQL queries for KPIs, monthly trends, categories, products, cities, and payment methods.
-- `python/sales_analysis.py` — beginner Python/Pandas analysis script.
-- `powerbi/README.md` — steps and DAX measures to create a Power BI dashboard.
-
-## Key analysis questions
-1. What are the total sales, orders, and units sold?
-2. Which month has the highest sales?
-3. Which product category contributes the most revenue?
-4. Which cities generate the highest sales?
-5. Which payment method is most frequently used?
-6. What is the average order value?
-
-## How to use
-### Excel
-Open `Excel_Sales_Dashboard.xlsx`. Explore the Dashboard, Sales Data, Monthly Summary, and Category Summary sheets.
-
-### SQL
-Load `data/sales_data.csv` into a SQL table named `sales_data` (column names can be kept as shown), then run the queries in `sql/sales_analysis.sql`. `LIMIT` syntax works in PostgreSQL and MySQL.
-
-### Python
-Install dependencies:
-```bash
-pip install pandas
-```
-Run from the project root:
-```bash
-python python/sales_analysis.py
+```DAX
+Total Sales = SUM(sales_data[Sales_INR])
+Total Orders = DISTINCTCOUNT(sales_data[Order_ID])
+Units Sold = SUM(sales_data[Quantity])
+Average Order Value = DIVIDE([Total Sales], [Total Orders])
 ```
 
-### Power BI
-Follow the instructions in `powerbi/README.md` to create and save your own `.pbix` dashboard.
+5. Add visuals:
+   - Card: Total Sales
+   - Card: Total Orders
+   - Card: Units Sold
+   - Card: Average Order Value
+   - Line chart: Month vs Total Sales
+   - Bar chart: Category vs Total Sales
+   - Bar chart: City vs Total Sales
+   - Donut chart: Payment_Mode by Total Sales
+6. Add slicers for Region, Category, and Payment_Mode.
+7. Save as `Sales_Analytics_Dashboard.pbix` in this folder after you build it.
 
-## Skills demonstrated
-- Data organization and basic data quality awareness
-- KPI calculation
-- Grouping and aggregation
-- SQL filtering and sorting
-- Basic Python analysis with Pandas
-- Dashboard design and data visualization
-
-## Limitations
-This is a learning project using synthetic data, not actual business data. The Power BI guide is included, but the `.pbix` dashboard must be built and saved in Power BI Desktop before claiming a completed Power BI dashboard project.
+## Important
+The data is synthetic sample data created for practice. Do not present it as real company sales data.
